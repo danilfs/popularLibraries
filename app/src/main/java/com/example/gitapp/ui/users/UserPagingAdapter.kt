@@ -37,7 +37,7 @@ class UserPagingAdapter :
             if (user == null) {
                 clear()
             } else {
-                binding.loginTextView.text = user.login
+                binding.loginTextView.text = user.id.toString()
                 binding.loginTextView.isVisible = user.login.isNotBlank()
                 binding.avatarImageView.load(user.avatarUrl) {
                     crossfade(true)

@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository {
 
-    fun getUsers(): Flow<PagingData<User>>
+    fun getUsers(
+        onSuccess: (List<User>) -> Unit,
+        onError: (error: Throwable) -> Unit
+    )
 
 }

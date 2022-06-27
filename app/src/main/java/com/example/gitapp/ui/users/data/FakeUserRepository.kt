@@ -1,5 +1,7 @@
 package com.example.gitapp.ui.users.data
 
+import android.os.Handler
+import android.os.Looper
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -7,6 +9,7 @@ import com.example.gitapp.ui.users.domain.model.IUserRepository
 import com.example.gitapp.ui.users.domain.model.User
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlin.random.Random
 
 class FakeUserRepository : IUserRepository {
 
@@ -17,15 +20,20 @@ class FakeUserRepository : IUserRepository {
         User(4, "wycats", "https://avatars.githubusercontent.com/u/4?v=4"),
     )
 
-    private suspend fun userLoader(sinceId: Int, pageSize: Int): List<User> {
-        delay(3000)
-        return fakeUsers
+    override fun getUsers(onSuccess: (List<User>) -> Unit, onError: (error: Throwable) -> Unit) {
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+                if (Random.nextBoolean()) {
+                    onSuccess(fakeUsers)
+                } else {
+                    onError(IllegalStateException("Something went wrong!"))
+                }
+            }, DATA_LOADING_DELAY
+        )
     }
 
-    override fun getUsers(): Flow<PagingData<User>> = Pager(
-        config = PagingConfig(pageSize = 20, enablePlaceholders = true)
-    ) {
-        UserPagingSource(::userLoader)
-    }.flow
+    companion object {
+        const val DATA_LOADING_DELAY = 2_000L
+    }
 
 }
