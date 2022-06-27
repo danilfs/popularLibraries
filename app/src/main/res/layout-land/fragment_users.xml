@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:padding="4dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
+        app:spanCount="5"
         tools:listitem="@layout/item_user" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
