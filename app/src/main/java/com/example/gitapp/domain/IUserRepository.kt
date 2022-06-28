@@ -1,7 +1,6 @@
-package com.example.gitapp.ui.users.domain.model
+package com.example.gitapp.domain
 
-import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
+import com.example.gitapp.domain.model.User
 
 interface IUserRepository {
 

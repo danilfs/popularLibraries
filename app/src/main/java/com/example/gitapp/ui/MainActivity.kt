@@ -1,4 +1,4 @@
-package com.example.gitapp.ui.users
+package com.example.gitapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

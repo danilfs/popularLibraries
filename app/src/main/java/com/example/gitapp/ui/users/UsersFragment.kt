@@ -6,8 +6,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.gitapp.R
+import com.example.gitapp.app
 import com.example.gitapp.databinding.FragmentUsersBinding
-import com.example.gitapp.ui.users.domain.model.User
+import com.example.gitapp.domain.model.User
 
 
 class UsersFragment : Fragment(R.layout.fragment_users) {
@@ -26,12 +27,12 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
     private fun setupStartScreenState() {
         binding.usersRecyclerView.isVisible = false
-        binding.errorScreen.errorLayout.isVisible = false
+        binding.errorScreen?.errorLayout?.isVisible?:false
         binding.usersSwipeRefresh.isRefreshing = false
     }
 
     private fun setupRefreshButton() =
-        binding.errorScreen.refreshButton.setOnClickListener {
+        binding.errorScreen?.refreshButton?.setOnClickListener {
             refreshScreen()
         }
 
@@ -47,13 +48,13 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     private fun showUsers(users: List<User>) {
         adapter.submitList(users)
         binding.usersSwipeRefresh.isRefreshing = false
-        binding.errorScreen.errorLayout.isVisible = false
+        binding.errorScreen?.errorLayout?.isVisible = false
         binding.usersRecyclerView.isVisible = true
     }
 
     private fun showError(error: Throwable) {
         binding.usersSwipeRefresh.isRefreshing = false
-        binding.errorScreen.errorLayout.isVisible = true
+        binding.errorScreen?.errorLayout?.isVisible = true
     }
 
     private fun showLoading() {

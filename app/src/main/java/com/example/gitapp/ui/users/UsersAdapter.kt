@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.gitapp.R
 import com.example.gitapp.databinding.ItemUserBinding
-import com.example.gitapp.ui.users.domain.model.User
+import com.example.gitapp.domain.model.User
 
 class UsersAdapter : ListAdapter<User, UsersAdapter.UsersViewHolder>(USERS_COMPARATOR) {
 
