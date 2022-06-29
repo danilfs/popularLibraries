@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.example.gitapp.data.FakeUserRepository
 import com.example.gitapp.data.api.GithubApiService
 import com.example.gitapp.domain.IUserRepository
+import com.example.gitapp.ui.users.UsersPresenter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
