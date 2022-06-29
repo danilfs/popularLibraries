@@ -1,6 +1,5 @@
 package com.example.gitapp.data
 
-
 import com.example.gitapp.data.api.GithubApiService
 import com.example.gitapp.data.api.mappers.UserDtoMapper
 import com.example.gitapp.data.api.model.UserDto

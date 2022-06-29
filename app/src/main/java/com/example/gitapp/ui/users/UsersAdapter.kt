@@ -11,7 +11,8 @@ import com.example.gitapp.R
 import com.example.gitapp.databinding.ItemUserBinding
 import com.example.gitapp.domain.model.User
 
-class UsersAdapter : ListAdapter<User, UsersAdapter.UsersViewHolder>(USERS_COMPARATOR) {
+class UsersAdapter(private val onClick: (user: User) -> Unit = {}) :
+    ListAdapter<User, UsersAdapter.UsersViewHolder>(USERS_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,7 +25,7 @@ class UsersAdapter : ListAdapter<User, UsersAdapter.UsersViewHolder>(USERS_COMPA
         holder.bind(user)
     }
 
-    class UsersViewHolder(private val binding: ItemUserBinding) :
+    inner class UsersViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User) {
@@ -33,6 +34,9 @@ class UsersAdapter : ListAdapter<User, UsersAdapter.UsersViewHolder>(USERS_COMPA
             binding.avatarImageView.load(user.avatarUrl) {
                 crossfade(true)
                 placeholder(R.drawable.bg_avatar_placeholder)
+            }
+            binding.root.setOnClickListener {
+                onClick(user)
             }
         }
     }
