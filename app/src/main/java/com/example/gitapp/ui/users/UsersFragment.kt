@@ -6,17 +6,31 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.gitapp.app
 import com.example.gitapp.domain.model.User
 import com.example.gitapp.R
 import com.example.gitapp.databinding.FragmentUsersBinding
+import com.example.gitapp.domain.IUserRepository
 
-class UsersFragment : Fragment(R.layout.fragment_users), UsersContract.View {
+class UsersFragment : Fragment(R.layout.fragment_users) {
 
     private val binding: FragmentUsersBinding by viewBinding()
     private var adapter = UsersAdapter(::showUserPageInBrowser)
-    private val presenter by lazy { app.usersPresenter }
+    private val viewModel by lazy {
+        ViewModelProvider(this, UsersViewModelFactory(app.userRepository))[UsersViewModel::class.java]
+    }
+
+    class UsersViewModelFactory(private val userRepository: IUserRepository): ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass == UsersViewModel::class.java) {
+                return UsersViewModel(userRepository) as T
+            }
+            throw IllegalArgumentException ("Unknown ViewModel")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,15 +38,20 @@ class UsersFragment : Fragment(R.layout.fragment_users), UsersContract.View {
         setupUserSwipeRefresh()
         setupUserRecyclerView()
         setupRefreshButton()
-        presenter.attach(this)
+        observeViewState()
         if (savedInstanceState == null) {
-            presenter.onRefresh() // uploading data only for the first time
+            viewModel.onRefresh() // uploading data only for the first time
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        presenter.detach()
+    private fun observeViewState() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                UsersViewState.Loading -> showLoading()
+                is UsersViewState.Success -> showUsers(state.users)
+                is UsersViewState.Error -> showError(state.error)
+            }
+        }
     }
 
     private fun setupStartScreenState() {
@@ -43,31 +62,31 @@ class UsersFragment : Fragment(R.layout.fragment_users), UsersContract.View {
 
     private fun setupRefreshButton() =
         binding.errorScreen.refreshButton.setOnClickListener {
-            presenter.onRefresh()
+            viewModel.onRefresh()
         }
 
     private fun setupUserSwipeRefresh() =
         binding.usersSwipeRefresh.setOnRefreshListener {
-            presenter.onRefresh()
+            viewModel.onRefresh()
         }
 
     private fun setupUserRecyclerView() {
         binding.usersRecyclerView.adapter = adapter
     }
 
-    override fun showUsers(users: List<User>) {
+    private fun showUsers(users: List<User>) {
         adapter.submitList(users)
         binding.usersSwipeRefresh.isRefreshing = false
         binding.errorScreen.errorLayout.isVisible = false
         binding.usersRecyclerView.isVisible = true
     }
 
-    override fun showError(error: Throwable) {
+    private fun showError(error: Throwable) {
         binding.usersSwipeRefresh.isRefreshing = false
         binding.errorScreen.errorLayout.isVisible = true
     }
 
-    override fun showLoading() {
+    private fun showLoading() {
         binding.usersSwipeRefresh.isRefreshing = true
     }
 
