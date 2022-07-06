@@ -1,18 +1,10 @@
 package com.example.gitapp.domain
 
 import com.example.gitapp.domain.model.User
+import io.reactivex.rxjava3.core.Single
 
 interface IUserRepository {
-
-    fun getUser(
-        userId: Int,
-        onSuccess: (User) -> Unit,
-        onError: (error: Throwable) -> Unit
-    )
-
-    fun getUsers(
-        onSuccess: (List<User>) -> Unit,
-        onError: (error: Throwable) -> Unit
-    )
-
+    fun getUser(userId: Int): Single<User>
+    fun getUsers(): Single<List<User>>
+    fun insert(users: List<User>) {}
 }

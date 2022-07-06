@@ -8,6 +8,8 @@ import com.example.gitapp.domain.model.User
 import com.example.gitapp.ui.ViewState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class UserDetailsViewModel(private val repository: IUserRepository) : ViewModel() {
@@ -19,6 +21,7 @@ class UserDetailsViewModel(private val repository: IUserRepository) : ViewModel(
         _viewState.onNext(ViewState.Loading)
         repository.getUser(userId)
             .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onSuccess = { _viewState.onNext(ViewState.Success(it)) },
                 onError = { _viewState.onNext(ViewState.Error(it)) }
