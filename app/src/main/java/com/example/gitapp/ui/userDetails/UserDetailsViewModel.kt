@@ -1,4 +1,4 @@
-package com.example.gitapp.ui.users
+package com.example.gitapp.ui.userDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,23 +10,18 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class UsersViewModel(private val userRepository: IUserRepository) : ViewModel() {
+class UserDetailsViewModel(private val repository: IUserRepository) : ViewModel() {
 
-    private val _viewState = BehaviorSubject.create<ViewState<List<User>>>()
-    val viewState: Observable<ViewState<List<User>>> get() = _viewState
+    private val _viewState = BehaviorSubject.create<ViewState<User>>()
+    val viewState: Observable<ViewState<User>> get() = _viewState
 
-    init {
-        requestUsers()
-    }
-
-    fun requestUsers() {
+    fun requestUserDetails(userId: Int) {
         _viewState.onNext(ViewState.Loading)
-        userRepository.getUsers()
+        repository.getUser(userId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { _viewState.onNext(ViewState.Success(it)) },
                 onError = { _viewState.onNext(ViewState.Error(it)) }
             )
     }
-
 }

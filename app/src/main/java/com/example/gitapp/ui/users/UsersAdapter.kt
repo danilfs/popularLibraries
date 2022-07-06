@@ -42,7 +42,6 @@ class UsersAdapter(private val onClick: (user: User) -> Unit = {}) :
     }
 }
 
-
 private val USERS_COMPARATOR = object : DiffUtil.ItemCallback<User>() {
     override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean = oldItem == newItem
