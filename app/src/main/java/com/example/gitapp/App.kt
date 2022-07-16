@@ -37,6 +37,8 @@ class App : Application() {
         val retrofitUserRepository = RetrofitUserRepository(gitApi)
         val roomUserRepository = RoomUserRepository(userDb.userDao())
 
+//        userRepository = FakeUserRepository()
+
         userRepository = CachedUserRepository(
             retrofitUserRepository,
             roomUserRepository
