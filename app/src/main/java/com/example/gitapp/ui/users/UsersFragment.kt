@@ -17,7 +17,9 @@ import com.example.gitapp.databinding.FragmentUsersBinding
 import com.example.gitapp.domain.IUserRepository
 import com.example.gitapp.ui.ViewModelFactory
 import com.example.gitapp.ui.ViewState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class UsersFragment : Fragment(R.layout.fragment_users) {
 
@@ -52,10 +54,11 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         disposable.add(viewModel.viewState.subscribe { renderViewState(it) })
     }
 
-    private fun setupRefreshButton() =
-        binding.errorScreen.refreshButton.setOnClickListener {
-            viewModel.requestUsers()
-        }
+    private fun setupRefreshButton() = binding.errorScreen.refreshButton.clicks
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeBy(
+            onNext = { viewModel.requestUsers() }
+        )
 
     private fun setupUserSwipeRefresh() =
         binding.usersSwipeRefresh.setOnRefreshListener {
