@@ -1,21 +1,14 @@
 package com.example.gitapp.ui.users
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.gitapp.app
 import com.example.gitapp.domain.model.User
 import com.example.gitapp.R
 import com.example.gitapp.databinding.FragmentUsersBinding
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.ui.ViewModelFactory
 import com.example.gitapp.ui.ViewState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -26,10 +19,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     private val binding: FragmentUsersBinding by viewBinding()
     private var adapter = UsersAdapter(::onUserClick)
     private var controller: Controller? = null
-    private val viewModel by lazy {
-        ViewModelProvider(this, ViewModelFactory(app.userRepository))[UsersViewModel::class.java]
-    }
-
+    private val viewModel: UsersViewModel by viewModel()
     private val disposable = CompositeDisposable()
 
     override fun onAttach(context: Context) {
