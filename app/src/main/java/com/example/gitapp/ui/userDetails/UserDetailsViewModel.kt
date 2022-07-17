@@ -1,7 +1,6 @@
 package com.example.gitapp.ui.userDetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import com.example.gitapp.domain.IUserRepository
 import com.example.gitapp.domain.model.User
@@ -23,7 +22,7 @@ class UserDetailsViewModel(private val repository: IUserRepository) : ViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribeBy(
-                onSuccess = { _viewState.onNext(ViewState.Success(it)) },
+                onNext = { _viewState.onNext(ViewState.Success(it)) },
                 onError = { _viewState.onNext(ViewState.Error(it)) }
             )
     }

@@ -4,7 +4,9 @@ import android.os.Handler
 import android.os.Looper
 import com.example.gitapp.domain.IUserRepository
 import com.example.gitapp.domain.model.User
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
+import java.io.IOException
 import kotlin.random.Random
 
 class FakeUserRepository : IUserRepository {
@@ -19,10 +21,13 @@ class FakeUserRepository : IUserRepository {
         User(7, "evanphx", "https://avatars.githubusercontent.com/u/7?v=4"),
     )
 
-    override fun getUser(userId: Int): Single<User> =
-        Single.just(fakeUsers.first { it.id == userId })
+    override fun getUser(userId: Int): Flowable<User> =
+        Single.just(fakeUsers.first { it.id == userId }).toFlowable()
 
-    override fun getUsers(): Single<List<User>> =
-        Single.just(fakeUsers)
+    override fun getUsers(): Flowable<List<User>> =
+        when (Random.nextBoolean()) {
+            true -> Single.just(fakeUsers)
+            false -> Single.error<List<User>>(IOException())
+        }.toFlowable()
 
 }

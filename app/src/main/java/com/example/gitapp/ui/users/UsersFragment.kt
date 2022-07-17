@@ -1,43 +1,37 @@
 package com.example.gitapp.ui.users
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.gitapp.app
 import com.example.gitapp.domain.model.User
 import com.example.gitapp.R
 import com.example.gitapp.databinding.FragmentUsersBinding
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.ui.ViewModelFactory
+import com.example.gitapp.ui.INavController
 import com.example.gitapp.ui.ViewState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UsersFragment : Fragment(R.layout.fragment_users) {
 
     private val binding: FragmentUsersBinding by viewBinding()
     private var adapter = UsersAdapter(::onUserClick)
-    private var controller: Controller? = null
-    private val viewModel by lazy {
-        ViewModelProvider(this, ViewModelFactory(app.userRepository))[UsersViewModel::class.java]
-    }
-
+    private var navController: INavController? = null
+    private val viewModel: UsersViewModel by viewModel()
     private val disposable = CompositeDisposable()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        controller = context as? Controller
+        navController = context as? INavController
     }
 
     override fun onDetach() {
         super.onDetach()
-        controller = null
+        navController = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,19 +42,32 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         observeViewState()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposable.dispose()
+    }
+
     private fun observeViewState() {
         disposable.add(viewModel.viewState.subscribe { renderViewState(it) })
     }
 
-    private fun setupRefreshButton() =
-        binding.errorScreen.refreshButton.setOnClickListener {
-            viewModel.requestUsers()
-        }
+    private fun setupRefreshButton() = binding.errorScreen.refreshButton.clicks
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeBy(
+            onNext = {
+                refreshScreen()
+            }
+        )
 
     private fun setupUserSwipeRefresh() =
         binding.usersSwipeRefresh.setOnRefreshListener {
-            viewModel.requestUsers()
+            refreshScreen()
         }
+
+    private fun refreshScreen() {
+        viewModel.requestUsers()
+        adapter.notifyDataSetChanged()
+    }
 
     private fun setupUserRecyclerView() {
         binding.usersRecyclerView.adapter = adapter
@@ -76,11 +83,6 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     }
 
     private fun onUserClick(user: User) =
-        controller?.navigateToUserDetails(user.id)
-
-
-    interface Controller {
-        fun navigateToUserDetails(userId: Int)
-    }
+        navController?.navigateToUserDetails(user.id)
 
 }
