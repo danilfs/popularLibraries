@@ -1,7 +1,6 @@
 package com.example.gitapp.ui.userDetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import com.example.gitapp.domain.IUserRepository
 import com.example.gitapp.domain.model.User
@@ -11,8 +10,10 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import javax.inject.Inject
 
-class UserDetailsViewModel(private val repository: IUserRepository) : ViewModel() {
+class UserDetailsViewModel @Inject constructor(private val repository: IUserRepository) :
+    ViewModel() {
 
     private val _viewState = BehaviorSubject.create<ViewState<User>>()
     val viewState: Observable<ViewState<User>> get() = _viewState
@@ -23,7 +24,7 @@ class UserDetailsViewModel(private val repository: IUserRepository) : ViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribeBy(
-                onSuccess = { _viewState.onNext(ViewState.Success(it)) },
+                onNext = { _viewState.onNext(ViewState.Success(it)) },
                 onError = { _viewState.onNext(ViewState.Error(it)) }
             )
     }
