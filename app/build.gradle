@@ -72,8 +72,8 @@ dependencies {
     implementation "androidx.room:room-rxjava3:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
 
-    // Koin - di
-    implementation "io.insert-koin:koin-core:3.1.2"
-    implementation "io.insert-koin:koin-android:3.1.2"
+    // Dagger - di
+    implementation 'com.google.dagger:dagger:2.42'
+    kapt 'com.google.dagger:dagger-compiler:2.42'
 
 }

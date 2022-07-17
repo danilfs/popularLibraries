@@ -1,18 +1,25 @@
 package com.example.gitapp.di
 
+import android.content.Context
+import com.example.gitapp.domain.IUserRepository
 import com.example.gitapp.ui.userDetails.UserDetailsViewModel
 import com.example.gitapp.ui.users.UsersViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 
-val appModule = module {
 
-    viewModel<UsersViewModel> {
-        UsersViewModel(get())
-    }
+@Module
+class AppModule(private val context: Context) {
 
-    viewModel<UserDetailsViewModel> {
-        UserDetailsViewModel(get())
-    }
+    @Provides
+    fun provideContext(): Context = context
+
+    @Provides
+    fun provideUsersViewModel(userRepository: IUserRepository) =
+        UsersViewModel(userRepository)
+
+    @Provides
+    fun provideUserDetailsViewModel(userRepository: IUserRepository) =
+        UserDetailsViewModel(userRepository)
 
 }

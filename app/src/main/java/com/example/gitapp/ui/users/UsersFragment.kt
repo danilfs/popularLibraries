@@ -8,21 +8,29 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.gitapp.domain.model.User
 import com.example.gitapp.R
+import com.example.gitapp.appComponent
 import com.example.gitapp.databinding.FragmentUsersBinding
 import com.example.gitapp.ui.INavController
 import com.example.gitapp.ui.ViewState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class UsersFragment : Fragment(R.layout.fragment_users) {
 
     private val binding: FragmentUsersBinding by viewBinding()
     private var adapter = UsersAdapter(::onUserClick)
     private var navController: INavController? = null
-    private val viewModel: UsersViewModel by viewModel()
     private val disposable = CompositeDisposable()
+
+    @Inject
+    lateinit var viewModel: UsersViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        appComponent.injectUsersFragment(this)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
