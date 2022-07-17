@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.example.gitapp.R
@@ -12,6 +11,7 @@ import com.example.gitapp.databinding.FragmentUserDetailsBinding
 import com.example.gitapp.domain.model.User
 import com.example.gitapp.ui.ViewState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserDetailsFragment : Fragment(R.layout.fragment_user_details) {
 

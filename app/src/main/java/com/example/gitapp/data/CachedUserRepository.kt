@@ -16,7 +16,10 @@ class CachedUserRepository(
     override fun getUser(userId: Int): Flowable<User> {
         retrofitRepository.getUser(userId)
             .observeOn(Schedulers.io())
-            .subscribeBy(onNext = { roomRepository.insert(listOf(it)) })
+            .subscribeBy(
+                onNext = { roomRepository.insert(listOf(it)) },
+                onError = {}
+            )
 
         return roomRepository.getUser(userId)
     }
@@ -25,7 +28,10 @@ class CachedUserRepository(
         Log.d("@@@", "getUsers")
         retrofitRepository.getUsers()
             .observeOn(Schedulers.io())
-            .subscribeBy(onNext = roomRepository::insert)
+            .subscribeBy(
+                onNext = roomRepository::insert,
+                onError = {}
+            )
 
         return roomRepository.getUsers()
     }

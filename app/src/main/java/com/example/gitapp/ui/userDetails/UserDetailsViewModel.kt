@@ -1,7 +1,6 @@
 package com.example.gitapp.ui.userDetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import com.example.gitapp.domain.IUserRepository
 import com.example.gitapp.domain.model.User

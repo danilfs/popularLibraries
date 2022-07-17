@@ -9,6 +9,8 @@ import com.example.gitapp.data.retrofit.GithubApiService
 import com.example.gitapp.data.retrofit.RetrofitUserRepository
 import com.example.gitapp.data.room.RoomUserRepository
 import com.example.gitapp.data.room.UserDatabase
+import com.example.gitapp.di.appModule
+import com.example.gitapp.di.dataModule
 import com.example.gitapp.domain.IUserRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
