@@ -1,8 +1,7 @@
-package com.example.gitapp.domain
+package com.example.gitapp
 
-import com.example.gitapp.domain.model.User
+
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 
 interface IUserRepository {
     fun getUser(userId: Int): Flowable<User>

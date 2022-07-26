@@ -1,10 +1,7 @@
-package com.example.gitapp.data.retrofit
+package com.example.gitapp
 
-import com.example.gitapp.data.retrofit.mappers.UserDtoMapper
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.domain.model.User
+
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 
 class RetrofitUserRepository(
     private val apiService: GithubApiService,

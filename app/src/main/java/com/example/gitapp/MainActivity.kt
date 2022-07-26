@@ -1,10 +1,8 @@
-package com.example.gitapp.ui
+package com.example.gitapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.gitapp.R
-import com.example.gitapp.ui.userDetails.UserDetailsFragment
-import com.example.gitapp.ui.users.UsersFragment
+
 
 class MainActivity : AppCompatActivity(), INavController {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,10 +1,7 @@
-package com.example.gitapp.data.room
+package com.example.gitapp
 
-import com.example.gitapp.data.room.mappers.UserEntityMapper
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.domain.model.User
+import com.chernorotov.gitapp.data.room.UserDao
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 
 class RoomUserRepository(
     private val userDao: UserDao,

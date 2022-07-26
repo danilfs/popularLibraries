@@ -1,5 +1,5 @@
-package com.example.gitapp.data.retrofit.mappers
+package com.example.gitapp
 
 interface DtoMapper<E, D> {
- fun mapToDomain(dto: E): D
+    fun mapToDomain(dto: E): D
 }

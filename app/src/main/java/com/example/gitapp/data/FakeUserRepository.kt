@@ -1,9 +1,6 @@
-package com.example.gitapp.data
+package com.example.gitapp
 
-import android.os.Handler
-import android.os.Looper
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.domain.model.User
+
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import java.io.IOException
@@ -29,5 +26,5 @@ class FakeUserRepository : IUserRepository {
             true -> Single.just(fakeUsers)
             false -> Single.error<List<User>>(IOException())
         }.toFlowable()
-
+    
 }

@@ -1,28 +1,20 @@
 package com.example.gitapp
 
 import android.app.Application
-import androidx.fragment.app.Fragment
-import com.example.gitapp.di.AppComponent
-import com.example.gitapp.di.AppModule
-import com.example.gitapp.di.DaggerAppComponent
-
+import ru.gidural.mykoin.startKoin
 
 
 class App : Application() {
 
-    lateinit var appComponent: AppComponent
+    lateinit var userRepository: IUserRepository
 
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent
-            .builder()
-            .appModule(AppModule(this))
-            .build()
-
+        startKoin {
+            androidContext(this@App)
+            modules(appModule, dataModule)
+        }
 
     }
 }
-
-
-val Fragment.appComponent get() = (requireContext().applicationContext as App).appComponent

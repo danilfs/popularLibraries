@@ -1,25 +1,17 @@
-package com.example.gitapp.di
+package com.example.gitapp
 
-import android.content.Context
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.ui.userDetails.UserDetailsViewModel
-import com.example.gitapp.ui.users.UsersViewModel
-import dagger.Module
-import dagger.Provides
+import ru.gidural.mykoin.get
+import ru.gidural.mykoin.module
 
 
-@Module
-class AppModule(private val context: Context) {
+val appModule = module {
 
-    @Provides
-    fun provideContext(): Context = context
+    viewModel<UsersViewModel> {
+        UsersViewModel(get())
+    }
 
-    @Provides
-    fun provideUsersViewModel(userRepository: IUserRepository) =
-        UsersViewModel(userRepository)
-
-    @Provides
-    fun provideUserDetailsViewModel(userRepository: IUserRepository) =
-        UserDetailsViewModel(userRepository)
+    viewModel<UserDetailsViewModel> {
+        UserDetailsViewModel(get())
+    }
 
 }

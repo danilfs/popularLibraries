@@ -1,12 +1,11 @@
-package com.example.gitapp.data.room
+package com.chernorotov.gitapp.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.example.gitapp.data.room.mappers.UserEntity
+import com.chernorotov.gitapp.data.room.model.UserEntity
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface UserDao {

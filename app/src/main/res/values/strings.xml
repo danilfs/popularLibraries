@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">GitApp</string>
     <string name="refresh">Refresh</string>
-    <string name="error_header">Something bad happened!</string>
-    <string name="error_label">We gonna fix this really quickly!</string>
-
+    <string name="error_header">Something went wrong</string>
+    <string name="error_label"></string>
 </resources>

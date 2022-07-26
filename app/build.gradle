@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.chernorotov.gb06_popular_library_git_client"
+        applicationId 'com.example.gitapp'
         minSdk 23
         targetSdk 32
         versionCode 1
@@ -72,8 +72,7 @@ dependencies {
     implementation "androidx.room:room-rxjava3:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
 
-    // Dagger - di
-    implementation 'com.google.dagger:dagger:2.42'
-    kapt 'com.google.dagger:dagger-compiler:2.42'
+    // MyKoin
+    implementation project(':myKoin')
 
 }

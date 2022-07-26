@@ -1,7 +1,7 @@
-package com.example.gitapp.data.retrofit.mappers
+package com.example.gitapp
 
-import com.example.gitapp.data.api.model.UserDto
-import com.example.gitapp.domain.model.User
+
+
 
 class UserDtoMapper : DtoMapper<UserDto, User> {
     override fun mapToDomain(dto: UserDto) = User(

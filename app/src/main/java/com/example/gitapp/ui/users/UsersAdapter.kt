@@ -1,4 +1,4 @@
-package com.example.gitapp.ui.users
+package com.example.gitapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.gitapp.R
 import com.example.gitapp.databinding.ItemUserBinding
-import com.example.gitapp.domain.model.User
+
 
 class UsersAdapter(private val onClick: (user: User) -> Unit = {}) :
     ListAdapter<User, UsersAdapter.UsersViewHolder>(USERS_COMPARATOR) {
