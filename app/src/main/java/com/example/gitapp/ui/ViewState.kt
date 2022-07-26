@@ -1,4 +1,5 @@
-package com.example.gitapp.ui
+package com.example.gitapp
+
 
 sealed class ViewState<out T> {
     object Loading : ViewState<Nothing>()

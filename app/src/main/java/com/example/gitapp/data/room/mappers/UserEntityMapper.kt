@@ -1,6 +1,8 @@
-package com.example.gitapp.data.room.mappers
+package com.example.gitapp
 
-import com.example.gitapp.domain.model.User
+import com.chernorotov.gitapp.data.room.mappers.EntityMapper
+import com.chernorotov.gitapp.data.room.model.UserEntity
+
 
 class UserEntityMapper : EntityMapper<UserEntity, User> {
     override fun mapToDomain(entity: UserEntity) = User(

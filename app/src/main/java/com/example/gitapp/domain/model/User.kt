@@ -1,4 +1,4 @@
-package com.example.gitapp.domain.model
+package com.example.gitapp
 
 data class User(
     val id: Int,

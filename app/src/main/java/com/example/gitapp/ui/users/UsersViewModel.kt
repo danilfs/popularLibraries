@@ -1,11 +1,6 @@
-package com.example.gitapp.ui.users
+package com.example.gitapp
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gitapp.domain.IUserRepository
-import com.example.gitapp.domain.model.User
-import com.example.gitapp.ui.ViewState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -27,8 +22,12 @@ class UsersViewModel(private val userRepository: IUserRepository) : ViewModel() 
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribeBy(
-                onSuccess = { _viewState.onNext(ViewState.Success(it)) },
-                onError = { _viewState.onNext(ViewState.Error(it)) }
+                onNext = {
+                    _viewState.onNext(ViewState.Success(it))
+                },
+                onError = {
+                    _viewState.onNext(ViewState.Error(it))
+                }
             )
     }
 

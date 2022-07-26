@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="20dp">
-
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/avatar_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:maxWidth="120dp"
-        android:maxHeight="90dp"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
         android:scaleType="fitCenter"
         tools:srcCompat="@drawable/bg_avatar_placeholder" />
 

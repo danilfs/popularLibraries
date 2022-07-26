@@ -1,10 +1,10 @@
-package com.example.gitapp.domain
+package com.example.gitapp
 
-import com.example.gitapp.domain.model.User
-import io.reactivex.rxjava3.core.Single
+
+import io.reactivex.rxjava3.core.Flowable
 
 interface IUserRepository {
-    fun getUser(userId: Int): Single<User>
-    fun getUsers(): Single<List<User>>
+    fun getUser(userId: Int): Flowable<User>
+    fun getUsers(): Flowable<List<User>>
     fun insert(users: List<User>) {}
 }

@@ -1,29 +1,19 @@
-package com.example.gitapp.ui.userDetails
+package com.example.gitapp
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import com.example.gitapp.R
-import com.example.gitapp.app
 import com.example.gitapp.databinding.FragmentUserDetailsBinding
-import com.example.gitapp.domain.model.User
-import com.example.gitapp.ui.ViewModelFactory
-import com.example.gitapp.ui.ViewState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import ru.gidural.mykoin.viewModel
 
 class UserDetailsFragment : Fragment(R.layout.fragment_user_details) {
 
     private val binding: FragmentUserDetailsBinding by viewBinding()
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            ViewModelFactory(app.userRepository)
-        )[UserDetailsViewModel::class.java]
-    }
+    private val viewModel: UserDetailsViewModel by viewModel()
 
     private val disposable = CompositeDisposable()
 

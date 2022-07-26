@@ -1,4 +1,4 @@
-package com.example.gitapp.data.room.mappers
+package com.chernorotov.gitapp.data.room.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
